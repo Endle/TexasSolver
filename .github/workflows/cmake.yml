@@ -43,9 +43,9 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       working-directory: ${{github.workspace}}/install
       run: |
-        for i in {1..5}
+        for i in {1..20}
         do
            echo "Test ID: $i"
-           ./console_solver -i resources/text/commandline_sample_input.txt
+           ./console_solver -i resources/text/commandline_sample_input.txt || exit 1
         done
 
