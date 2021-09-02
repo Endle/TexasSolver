@@ -38,3 +38,14 @@ jobs:
       working-directory: ${{github.workspace}}/install
       run: ./console_solver -i resources/text/commandline_sample_input.txt
       
+      
+    - name: Repeat test
+      if: matrix.os == 'ubuntu-latest'
+      working-directory: ${{github.workspace}}/install
+      run: |
+        for i in {1..5}
+        do
+           echo "Test ID: $i"
+           ./console_solver -i resources/text/commandline_sample_input.txt
+        done
+
