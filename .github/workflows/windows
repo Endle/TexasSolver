@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: CI_windows
 
 # Controls when the workflow will run
 on:
@@ -16,9 +16,12 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build_win:
+    strategy:
+      matrix:
+        version: [5.15.2,6.2.4, 6.3.0]
     # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
+    runs-on: windows-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -28,9 +31,15 @@ jobs:
       # Runs a single command using the runners shell
       - name: dummy echo
         run: echo Hello, world!
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: ${{ matrix.version }}
+          host: 'windows'
+          target: 'desktop'
 
       # Runs a set of commands using the runners shell
-      - name: install dependencies
+      - name: check version
         run: |
-          sudo apt install -y qt5-default qtbase5-dev qt5-qmake build-essential wget
+          echo Hello, world!
           
