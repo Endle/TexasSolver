@@ -40,8 +40,8 @@ ICON = imgs/texassolver_logo.icns
 }
 
 win32: {
-QMAKE_CXXFLAGS+= -openmp
-QMAKE_LFLAGS +=  -openmp
+QMAKE_CXXFLAGS += -fopenmp
+QMAKE_LFLAGS += -fopenmp
 RC_ICONS = imgs/texassolver_logo.ico
 }
 
