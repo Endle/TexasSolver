@@ -59,7 +59,7 @@ jobs:
           export EXECUTABLE=TexasSolverGui
           export TEMP_BASE=/tmp
           # https://ss64.com/osx/mktemp.html
-          export BUILD_DIR=$(mktemp -d "$TEMP_BASE")
+          export BUILD_DIR=$(mktemp -d "$TEMP_BASE"/qtbuild)
           export REPO_ROOT=$(readlink -f $(dirname $(dirname $0)))
           export OLD_CWD=$(readlink -f .)
           echo "Use $BUILD_DIR as BUILD_DIR"
