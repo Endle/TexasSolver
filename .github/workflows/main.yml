@@ -55,11 +55,14 @@ jobs:
           version: '5.15.2'      
       - name: Set Env Variables
         run: |
+          set -e
           export EXECUTABLE=TexasSolverGui
           export TEMP_BASE=/tmp
-          export BUILD_DIR=$(mktemp -d -p "$TEMP_BASE" appimage-build-XXXXXX)
+          # https://ss64.com/osx/mktemp.html
+          export BUILD_DIR=$(mktemp -d "$TEMP_BASE")
           export REPO_ROOT=$(readlink -f $(dirname $(dirname $0)))
           export OLD_CWD=$(readlink -f .)
+          echo "Use $BUILD_DIR as BUILD_DIR"
       - name: qmake
         run: |
           cd "$BUILD_DIR"
