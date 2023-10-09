@@ -53,8 +53,19 @@ jobs:
         uses: jurplel/install-qt-action@v3
         with:
           version: '5.15.2'      
-
-      - name: make appimage
+      - name: Set Env Variables
         run: |
-           ls
-           ./build-AppImage.sh
+          export EXECUTABLE=TexasSolverGui
+          export TEMP_BASE=/tmp
+          export BUILD_DIR=$(mktemp -d -p "$TEMP_BASE" appimage-build-XXXXXX)
+          export REPO_ROOT=$(readlink -f $(dirname $(dirname $0)))
+          export OLD_CWD=$(readlink -f .)
+      - name: qmake
+        run: |
+          cd "$BUILD_DIR"
+          qmake "$REPO_ROOT"
+      - name: make
+        run: |
+           cd "$BUILD_DIR"
+           make
+           make install INSTALL_ROOT=AppDir
