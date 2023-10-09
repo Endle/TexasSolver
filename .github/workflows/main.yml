@@ -53,22 +53,17 @@ jobs:
         uses: jurplel/install-qt-action@v3
         with:
           version: '5.15.2'      
-      - name: Set Env Variables
+      - name: Make
         run: |
           set -e
           export EXECUTABLE=TexasSolverGui
           export TEMP_BASE=/tmp
           # https://ss64.com/osx/mktemp.html
-          export BUILD_DIR=$(mktemp -d "$TEMP_BASE"/qtbuild)
+          export BUILD_DIR=/tmp/qtbuild
           export REPO_ROOT=$(readlink -f $(dirname $(dirname $0)))
           export OLD_CWD=$(readlink -f .)
           echo "Use $BUILD_DIR as BUILD_DIR"
-      - name: qmake
-        run: |
           cd "$BUILD_DIR"
           qmake "$REPO_ROOT"
-      - name: make
-        run: |
-           cd "$BUILD_DIR"
-           make
-           make install INSTALL_ROOT=AppDir
+          make
+          make install INSTALL_ROOT=AppDir
