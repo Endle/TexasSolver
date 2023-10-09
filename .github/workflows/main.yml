@@ -44,3 +44,17 @@ jobs:
         with:
           name: TexasSolverGui-x86_64.AppImage.bin
           path: ./TexasSolverGui-x86_64.AppImage
+
+  build_mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '5.15.2'      
+
+      - name: make appimage
+        run: |
+           ls
+           ./build-AppImage.sh
