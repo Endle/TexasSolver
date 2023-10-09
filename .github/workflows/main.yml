@@ -63,6 +63,7 @@ jobs:
           export REPO_ROOT=$(readlink -f $(dirname $(dirname $0)))
           export OLD_CWD=$(readlink -f .)
           echo "Use $BUILD_DIR as BUILD_DIR"
+          mkdir $BUILD_DIR
           cd "$BUILD_DIR"
           qmake "$REPO_ROOT"
           make
