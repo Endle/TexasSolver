@@ -14,6 +14,7 @@ jobs:
   # This workflow contains a single job called "build"
   build_win:
     strategy:
+      fail-fast: false
       matrix:
         version: [5.15.2,6.2.4, 6.3.0]
     # The type of runner that the job will run on
@@ -23,7 +24,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
+      - uses: ilammy/msvc-dev-cmd@v1
       # Runs a single command using the runners shell
       - name: dummy echo
         run: echo Hello, world!
