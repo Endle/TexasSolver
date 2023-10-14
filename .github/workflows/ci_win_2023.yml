@@ -31,6 +31,12 @@ jobs:
         with:
           version: ${{ matrix.version }}
           target: 'desktop'
+      - name: Show env
+        run: |
+          which qmake
+          which make
+          which cc
+          qmake --version
       - run: qmake
       - uses: actions/upload-artifact@v3
         with:
