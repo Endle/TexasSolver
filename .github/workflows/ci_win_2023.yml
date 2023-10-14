@@ -42,5 +42,7 @@ jobs:
         with:
           name: makefile
           path: Makefile.release
-      - run: make
+      - run: |
+          which make.exe
+          make.exe
           
