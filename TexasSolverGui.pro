@@ -35,7 +35,7 @@ QMAKE_LFLAGS += -lomp
 }
 
 macx: {
-LIBS += -L /usr/local/lib /usr/local/lib/libomp.dylib
+LIBS += -L /usr/local/lib /nix/store/aivvw0y2gizqyb4vnc27wmq3b4k9j83d-openmp-11.1.0/lib/libomp.dylib
 ICON = imgs/texassolver_logo.icns
 }
 
