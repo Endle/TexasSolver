@@ -17,14 +17,16 @@ jobs:
       fail-fast: false
       matrix:
         version: [5.15.2,6.2.4, 6.3.0]
+        os: [windows-latest, macos-latest, ubuntu-latest]
     # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - uses: ilammy/msvc-dev-cmd@v1
+        if: runner.os == 'Windows'
       # Runs a single command using the runners shell
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
@@ -42,7 +44,9 @@ jobs:
         with:
           name: makefile
           path: Makefile.release
-      - run: |
-          which make.exe
-          make.exe
+      - name: Make
+        shell: bash
+        run: |
+          which make
+          make
           
