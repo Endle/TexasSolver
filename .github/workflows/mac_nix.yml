@@ -15,5 +15,5 @@ jobs:
     - uses: DeterminateSystems/magic-nix-cache-action@main
     - run: nix-shell -p nix-info --run "nix-info -m"
 #- run: nix-shell -p qt5.qtwebengine
-    - run: nix-shell -p qt5.qtbase llvmPackages.openmp
+    - run: nix-env -iA qt5.qtbase clang llvmPackages.openmp
     - run: qmake && make
