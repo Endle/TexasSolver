@@ -25,22 +25,46 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: dummy echo
-        run: echo Hello, world!
+    #   # Runs a single command using the runners shell
+    #   - name: dummy echo
+    #     run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: install dependencies
-        run: |
-          sudo apt install -y qt5-default qtbase5-dev qt5-qmake build-essential wget
+    #   # Runs a set of commands using the runners shell
+    #   - name: install dependencies
+    #     run: |
+    #       sudo apt install -y qt5-default qtbase5-dev qt5-qmake build-essential wget
           
-      # Runs a set of commands using the runners shell
-      - name: make appimage
-        run: |
-           ls
-           ./build-AppImage.sh
+    #   # Runs a set of commands using the runners shell
+    #   - name: make appimage
+    #     run: |
+    #        ls
+    #        ./build-AppImage.sh
 
-      - uses: actions/upload-artifact@v2
+    #   - uses: actions/upload-artifact@v2
+    #     with:
+    #       name: TexasSolverGui-x86_64.AppImage.bin
+    #       path: ./TexasSolverGui-x86_64.AppImage
+
+  build_mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
         with:
-          name: TexasSolverGui-x86_64.AppImage.bin
-          path: ./TexasSolverGui-x86_64.AppImage
+          version: '5.15.2'      
+      - name: Make
+        run: |
+          set -e
+          export EXECUTABLE=TexasSolverGui
+          export TEMP_BASE=/tmp
+          # https://ss64.com/osx/mktemp.html
+          export BUILD_DIR=/tmp/qtbuild
+          export REPO_ROOT=$(readlink -f $(dirname $(dirname $0)))
+          export OLD_CWD=$(readlink -f .)
+          echo "Use $BUILD_DIR as BUILD_DIR"
+          mkdir $BUILD_DIR
+          cd "$BUILD_DIR"
+          qmake "$REPO_ROOT"
+          make
+          make install INSTALL_ROOT=AppDir
